@@ -2,45 +2,36 @@ package Clases;
 
 public class Usuario {
 
-    private String ID;
+    private int Cedula;
     private String Nombre;
-    private String Apellido;
-    private int Contraseña;
+    private String Contraseña;
     private char tusuario;
 
-    public String getCedula() {
-        return ID;
+    public int getCedula() {
+        return Cedula;
     }
 
     public String getNombre() {
         return Nombre;
     }
 
-    public String getApellido() {
-        return Apellido;
-    }
-
-    public int getContraseña() {
+    public String getContraseña() {
         return Contraseña;
     }
 
-    public char getUsuario() {
+    public char getTipoUsuario() {
         return tusuario;
     }
 
-    public void setCedula(String Cedula) {
-        this.ID = Cedula;
+    public void setCedula(int Cedula) {
+        this.Cedula = Cedula;
     }
 
     public void setNombre(String Nombre) {
         this.Nombre = Nombre;
     }
 
-    public void setApellido(String Apellido) {
-        this.Apellido = Apellido;
-    }
-
-    public void setContraseña(int Contraseña) {
+    public void setContraseña(String Contraseña) {
         this.Contraseña = Contraseña;
     }
 
