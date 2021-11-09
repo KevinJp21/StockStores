@@ -25,15 +25,15 @@ public class Operaciones {
             return (false);
         }
     }
-    /**
+    
      public boolean EsContraseña(String cadena) {
-        if (cadena.matches("[0-9]+")) {
+        if (cadena.matches("^(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,16}$")) {
             return (true);
         } else {
             return (false);
         }
     }
-    *//
+    
      
     
 
