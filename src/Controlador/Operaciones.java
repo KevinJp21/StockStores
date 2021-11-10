@@ -1,9 +1,8 @@
-
 package Controlador;
 
-
 public class Operaciones {
-         //Valida si es una cadena que se escribo
+
+    // valida si es una cadena que se escribo
     public boolean Estexto(String cad) {
         boolean sw = true;
         int lc = cad.length(), i;
@@ -17,8 +16,10 @@ public class Operaciones {
             i++;
         }
         return (sw);
-    }  
-     public boolean Esnumero(String cadena) {
+    }
+    
+    // valida si lo que se escribio es un numero
+    public boolean Esnumero(String cadena) {
         if (cadena.matches("[0-9]+")) {
             return (true);
         } else {
@@ -26,16 +27,13 @@ public class Operaciones {
         }
     }
     
-     public boolean EsContraseña(String cadena) {
+    // valida si lo que se escribio es una contrasena
+    public boolean EsContrasena(String cadena) {
         if (cadena.matches("^(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,16}$")) {
             return (true);
         } else {
             return (false);
         }
-        
-    }
-    
-     
-    
 
+    }
 }
