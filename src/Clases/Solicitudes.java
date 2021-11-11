@@ -1,6 +1,6 @@
 package Clases;
 
-public class Solicitudes extends Inventario {
+public class Solicitudes{
 
     private int subtotal;
     

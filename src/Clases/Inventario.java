@@ -1,13 +1,15 @@
 package Clases;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Inventario {
     
     private final ArrayList<Producto> productos;
     Producto producto = new Producto();
+    private List <Solicitudes> solicitud;
     
-    public Inventario(){
+    public Inventario(Solicitudes solicitud){
         productos = new ArrayList<>();
     }
     
@@ -48,5 +50,14 @@ public class Inventario {
     //Devuelve la posición del objeto en la lista
     public int indexProducto(Producto P){
         return (productos.indexOf(P));
+    }
+    
+     public void AgregarSolicitud(Solicitudes solicitudes) {
+        if (this.solicitud != null) {
+            this.solicitud.add(solicitudes);
+        } else {
+            this.solicitud = new ArrayList<Solicitudes>();
+            this.solicitud.add(solicitudes);
+        }
     }
 }
