@@ -17,9 +17,10 @@ import javax.swing.JOptionPane;
  * @author Jose angel
  */
 public class Add_Items extends javax.swing.JFrame {
+    Producto p;
     Inventario Stock = new Inventario();
     Operaciones validaciones = new Operaciones();
-    Producto producto = new Producto();
+    Producto producto;
 
     /**
      * Creates new form No_sé
@@ -45,7 +46,7 @@ public class Add_Items extends javax.swing.JFrame {
         TXTExistencias.setEnabled(answer);
 
     }
-
+    
     public void ImprimirLista() {
         if (Stock.getTamano() > 0) {
             for (int j = 0; j < Stock.getTamano(); j++) {
@@ -55,9 +56,11 @@ public class Add_Items extends javax.swing.JFrame {
                 JTable.setValueAt(Stock.posicionProducto(j).getStock(), j, 3);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Productos en la lista", "Validación de datos", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No hay encuestados en la lista", "Validación de datos", JOptionPane.INFORMATION_MESSAGE);
+            
         }
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -330,14 +333,14 @@ public class Add_Items extends javax.swing.JFrame {
                     if (!validaciones.Esnumero(TXTExistencias.getText().trim()) || TXTExistencias.getText().trim().isEmpty() || Long.parseLong(TXTExistencias.getText().trim()) < 0) {
                         JOptionPane.showMessageDialog(null, "No es un numero válido o debe ingresar algún numero no negativo", "Validación de datos", JOptionPane.ERROR_MESSAGE);
                     } else {
-                      
+                        Stock.agregar(p);
                         Limpiar();
                         habilita(true);
-
+                        JOptionPane.showMessageDialog(null, "Datos Guardados", "Ingreso de Datos", JOptionPane.INFORMATION_MESSAGE); 
                     }
                 }
             }
-        }
+        }    
     }//GEN-LAST:event_JBAgregarActionPerformed
 
     /**
