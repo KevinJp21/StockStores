@@ -2,27 +2,27 @@ package Clases;
 
 public class Producto {
 
-    private int id;
+    private String id;
     private String articulo;
-    private int precio;
-    private int stock;
+    private String precio;
+    private String stock;
 
     public Producto() {
         // nada.
     }
 
-    public Producto(int id, String articulo, int precio, int stock) {
+    public Producto(String id, String articulo, String precio, String stock) {
         this.id = id;
         this.articulo = articulo;
         this.precio = precio;
         this.stock = stock;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -34,19 +34,19 @@ public class Producto {
         this.articulo = articulo;
     }
 
-    public int getPrecio() {
+    public String getPrecio() {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(String precio) {
         this.precio = precio;
     }
 
-    public int getStock() {
+    public String getStock() {
         return stock;
     }
 
-    public void setStock(int stock) {
+    public void setStock(String stock) {
         this.stock = stock;
     }
 
