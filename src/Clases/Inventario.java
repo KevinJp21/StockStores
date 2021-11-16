@@ -21,11 +21,6 @@ public class Inventario {
         producto.setStock(Stock);
         productos.add(producto);
     }
-    
-    public void agregar(Producto P){
-        productos.add(P);
-    }
-    
     //Metodo que permite eliminar un objeto del ArrayList
     public void eliminarProducto(Producto P) {
         productos.remove(P);
