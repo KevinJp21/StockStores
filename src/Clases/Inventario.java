@@ -14,7 +14,7 @@ public class Inventario {
     }
     
     //Metodo que permite agregar un objeto del ArrayList
-    public void agregarProducto(int Id, String Articulo, int Precio, int Stock){
+    public void agregarProducto(String Id, String Articulo, String Precio, String Stock){
         producto.setId(Id);
         producto.setArticulo(Articulo);
         producto.setPrecio(Precio);
@@ -33,7 +33,7 @@ public class Inventario {
     }
     
     //Metodo que busca un producto por la ID
-    public Producto buscarProducto(int ID) {
+    public Producto buscarProducto(String ID) {
         for (Producto P : productos) {
             if (P.getId() == ID) {
                 return (P);
