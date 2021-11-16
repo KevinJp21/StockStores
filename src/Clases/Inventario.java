@@ -2,6 +2,7 @@ package Clases;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JTextField;
 
 public class Inventario {
     
@@ -9,7 +10,7 @@ public class Inventario {
     Producto producto = new Producto();
     private List <Solicitudes> solicitud;
     
-    public Inventario(Solicitudes solicitud){
+    public Inventario(){
         productos = new ArrayList<>();
     }
     
@@ -20,6 +21,10 @@ public class Inventario {
         producto.setPrecio(Precio);
         producto.setStock(Stock);
         productos.add(producto);
+    }
+    
+    public void agregar(Producto P){
+        productos.add(P);
     }
     
     //Metodo que permite eliminar un objeto del ArrayList
@@ -33,9 +38,9 @@ public class Inventario {
     }
     
     //Metodo que busca un producto por la ID
-    public Producto buscarProducto(String ID) {
+    public Producto buscarProducto(int ID) {
         for (Producto P : productos) {
-            if (P.getId() == ID) {
+            if (P.getId().equals(ID)) {
                 return (P);
             }
         }
@@ -59,5 +64,9 @@ public class Inventario {
             this.solicitud = new ArrayList<Solicitudes>();
             this.solicitud.add(solicitudes);
         }
+    }
+
+    public void agregarProducto(JTextField TXTID, JTextField TXTArticulo, JTextField TXTPrecio, JTextField TXTExistencias) {
+        
     }
 }
