@@ -17,7 +17,6 @@ import javax.swing.JOptionPane;
  * @author Jose angel
  */
 public class Add_Items extends javax.swing.JFrame {
-    Producto p;
     Inventario Stock = new Inventario();
     Operaciones validaciones = new Operaciones();
     Producto producto;
@@ -56,7 +55,7 @@ public class Add_Items extends javax.swing.JFrame {
                 JTable.setValueAt(Stock.posicionProducto(j).getStock(), j, 3);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "No hay encuestados en la lista", "Validación de datos", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No hay productos guardados", "Validación de datos", JOptionPane.INFORMATION_MESSAGE);
             
         }
     }
@@ -336,7 +335,7 @@ public class Add_Items extends javax.swing.JFrame {
                         Stock.agregar(p);
                         Limpiar();
                         habilita(true);
-                        JOptionPane.showMessageDialog(null, "Datos Guardados", "Ingreso de Datos", JOptionPane.INFORMATION_MESSAGE); 
+                        JOptionPane.showMessageDialog(null, "Procucto Guardado", "Ingreso de Datos", JOptionPane.INFORMATION_MESSAGE); 
                     }
                 }
             }
