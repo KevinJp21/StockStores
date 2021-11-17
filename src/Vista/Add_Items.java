@@ -47,14 +47,6 @@ public class Add_Items extends javax.swing.JFrame {
 
     }
 
-    public void EliminarProducto() {
-        if(JTable.getSelectedRow()>=0){
-        DefaultTableModel dtm = (DefaultTableModel) JTable.getModel();
-        dtm.removeRow(JTable.getSelectedRow());
-        }else
-          JOptionPane.showMessageDialog(null, "Seleccione el producto que desesa eliminar", "Validación de datos", JOptionPane.INFORMATION_MESSAGE);  
-    }
-
     public void ImprimirLista() {
         if (Inventario.getTamano() > 0) {
             for (int j = 0; j < Inventario.getTamano(); j++) {
@@ -372,7 +364,7 @@ public class Add_Items extends javax.swing.JFrame {
     }//GEN-LAST:event_JBAgregarActionPerformed
 
     private void JBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBEliminarActionPerformed
-        EliminarProducto();
+        
     }//GEN-LAST:event_JBEliminarActionPerformed
 
     /**
