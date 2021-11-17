@@ -5,9 +5,8 @@
  */
 package Vista;
 
-import Clases.Cliente;
-import java.awt.Toolkit;
 import Clases.Inventario;
+import java.awt.Toolkit;
 import Clases.Producto;
 import Controlador.Operaciones;
 import javax.swing.JOptionPane;
@@ -17,9 +16,10 @@ import javax.swing.JOptionPane;
  * @author Jose angel
  */
 public class Add_Items extends javax.swing.JFrame {
-    Inventario Stock = new Inventario();
+
     Operaciones validaciones = new Operaciones();
-    Producto producto;
+    public Inventario Inventario = new Inventario();
+    public Producto producto = new Producto();
 
     /**
      * Creates new form No_sé
@@ -45,21 +45,20 @@ public class Add_Items extends javax.swing.JFrame {
         TXTExistencias.setEnabled(answer);
 
     }
-    
+
     public void ImprimirLista() {
-        if (Stock.getTamano() > 0) {
-            for (int j = 0; j < Stock.getTamano(); j++) {
-                JTable.setValueAt(Stock.posicionProducto(j).getId(), j, 0);
-                JTable.setValueAt(Stock.posicionProducto(j).getArticulo().toUpperCase(), j, 1);
-                JTable.setValueAt(Stock.posicionProducto(j).getPrecio(), j, 2);
-                JTable.setValueAt(Stock.posicionProducto(j).getStock(), j, 3);
+        if (Inventario.getTamano() > 0) {
+            for (int j = 0; j < Inventario.getTamano(); j++) {
+                JTable.setValueAt(Inventario.posicionProducto(j).getId(), j, 0);
+                JTable.setValueAt(Inventario.posicionProducto(j).getArticulo().toUpperCase(), j, 1);
+                JTable.setValueAt(Inventario.posicionProducto(j).getPrecio(), j, 2);
+                JTable.setValueAt(Inventario.posicionProducto(j).getStock(), j, 3);
             }
         } else {
             JOptionPane.showMessageDialog(null, "No hay productos guardados", "Validación de datos", JOptionPane.INFORMATION_MESSAGE);
-            
+
         }
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -332,14 +331,18 @@ public class Add_Items extends javax.swing.JFrame {
                     if (!validaciones.Esnumero(TXTExistencias.getText().trim()) || TXTExistencias.getText().trim().isEmpty() || Long.parseLong(TXTExistencias.getText().trim()) < 0) {
                         JOptionPane.showMessageDialog(null, "No es un numero válido o debe ingresar algún numero no negativo", "Validación de datos", JOptionPane.ERROR_MESSAGE);
                     } else {
-                        Stock.agregar(p);
+
+                        producto = new Producto(TXTID.getText(), TXTArticulo.getText().toUpperCase(), TXTPrecio.getText().toUpperCase(), TXTExistencias.getText().toUpperCase(), Inventario);
+
+                        Inventario.agregar(producto);
+
                         Limpiar();
                         habilita(true);
-                        JOptionPane.showMessageDialog(null, "Procucto Guardado", "Ingreso de Datos", JOptionPane.INFORMATION_MESSAGE); 
+                        JOptionPane.showMessageDialog(null, "Procucto Guardado", "Ingreso de Datos", JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
             }
-        }    
+        }
     }//GEN-LAST:event_JBAgregarActionPerformed
 
     /**
