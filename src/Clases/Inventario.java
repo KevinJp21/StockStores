@@ -1,26 +1,21 @@
 package Clases;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JTextField;
+
 
 public class Inventario {
     
-    private final ArrayList<Producto> productos;
-    Producto producto = new Producto();
+    private ArrayList<Producto> productos;
     private List <Solicitudes> solicitud;
     
     public Inventario(){
         productos = new ArrayList<>();
     }
-    
-    //Metodo que permite agregar un objeto del ArrayList
-    public void agregarProducto(String Id, String Articulo, String Precio, String Stock){
-        producto.setId(Id);
-        producto.setArticulo(Articulo);
-        producto.setPrecio(Precio);
-        producto.setStock(Stock);
-        productos.add(producto);
+    public void agregar(Producto SF) {
+        productos.add(SF);
     }
+    
+
     //Metodo que permite eliminar un objeto del ArrayList
     public void eliminarProducto(Producto P) {
         productos.remove(P);
@@ -50,8 +45,7 @@ public class Inventario {
     public int indexProducto(Producto P){
         return (productos.indexOf(P));
     }
-    
-     public void AgregarSolicitud(Solicitudes solicitudes) {
+    public void AgregarSolicitud(Solicitudes solicitudes) {
         if (this.solicitud != null) {
             this.solicitud.add(solicitudes);
         } else {
@@ -59,8 +53,6 @@ public class Inventario {
             this.solicitud.add(solicitudes);
         }
     }
-
-    public void agregarProducto(JTextField TXTID, JTextField TXTArticulo, JTextField TXTPrecio, JTextField TXTExistencias) {
-        
+    
+     
     }
-}
