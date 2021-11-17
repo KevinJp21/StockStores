@@ -1,58 +1,114 @@
 package Clases;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Inventario {
-    
-    private ArrayList<Producto> productos;
-    private List <Solicitudes> solicitud;
-    
-    public Inventario(){
-        productos = new ArrayList<>();
-    }
-    public void agregar(Producto SF) {
-        productos.add(SF);
-    }
-    
+public class Producto {
+    private String id;
+    private String articulo;
+    private String precio;
+    private String stock;
+    private List<Inventario> inventario;
 
-    //Metodo que permite eliminar un objeto del ArrayList
-    public void eliminarProducto(Producto P) {
-        productos.remove(P);
+    public Producto(String id, String articulo, String precio, String stock, Inventario inventario) {
+        this.id = id;
+        this.articulo = articulo;
+        this.precio = precio;
+        this.stock = stock;
+        this.agregarproducto(inventario);
+
     }
-    
-    //Obtiene el tamaño o longitud del ArrayList
-    public int getTamano() {
-        return (productos.size());
+
+    public Producto() {
+      
     }
-    
-    //Metodo que busca un producto por la ID
-    public Producto buscarProducto(int ID) {
-        for (Producto P : productos) {
-            if (P.getId().equals(ID)) {
-                return (P);
-            }
-        }
-        return (null);
-    }
-    
-    //Selecciona la posicion del objeto en la lista
-    public Producto posicionProducto(int pos) {
-        return (productos.get(pos));
-    }
-    
-    //Devuelve la posición del objeto en la lista
-    public int indexProducto(Producto P){
-        return (productos.indexOf(P));
-    }
-    public void AgregarSolicitud(Solicitudes solicitudes) {
-        if (this.solicitud != null) {
-            this.solicitud.add(solicitudes);
+
+    public void agregarproducto(Inventario Stock) {
+        if (this.getInventario() != null) {
+            this.getInventario().add(Stock);
         } else {
-            this.solicitud = new ArrayList<Solicitudes>();
-            this.solicitud.add(solicitudes);
+            this.setInventario(new ArrayList<Inventario>());
+            this.getInventario().add(Stock);
         }
     }
-    
-     
+     public int getTamaño() {
+        if (this.getInventario()== null) {
+            return (0);
+        } else {
+            return (getInventario().size());
+        }
+
+    } 
+  
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
     }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the articulo
+     */
+    public String getArticulo() {
+        return articulo;
+    }
+
+    /**
+     * @param articulo the articulo to set
+     */
+    public void setArticulo(String articulo) {
+        this.articulo = articulo;
+    }
+
+    /**
+     * @return the precio
+     */
+    public String getPrecio() {
+        return precio;
+    }
+
+    /**
+     * @param precio the precio to set
+     */
+    public void setPrecio(String precio) {
+        this.precio = precio;
+    }
+
+    /**
+     * @return the stock
+     */
+    public String getStock() {
+        return stock;
+    }
+
+    /**
+     * @param stock the stock to set
+     */
+    public void setStock(String stock) {
+        this.stock = stock;
+    }
+
+    /**
+     * @return the inventario
+     */
+    public List<Inventario> getInventario() {
+        return inventario;
+    }
+
+    /**
+     * @param inventario the inventario to set
+     */
+    public void setInventario(List<Inventario> inventario) {
+        this.inventario = inventario;
+    }
+     
+}
