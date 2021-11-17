@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Jose angel
  */
 public class Add_Items extends javax.swing.JFrame {
-
+    public int poslugar;
     Operaciones validaciones = new Operaciones();
     public Inventario Inventario = new Inventario();
     public Producto producto = new Producto();
@@ -29,7 +29,15 @@ public class Add_Items extends javax.swing.JFrame {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Imagenes/stock.png")));
     }
-
+    
+    public void limpiarTabla() {
+        for (int i = 0; i < 10; i++) {
+            JTable.setValueAt("", i, 0);
+            JTable.setValueAt("", i, 1);
+            JTable.setValueAt("", i, 2);
+            JTable.setValueAt("", i, 3);
+        }
+    }
     void Limpiar() {
 
         TXTID.setText("");
@@ -210,12 +218,25 @@ public class Add_Items extends javax.swing.JFrame {
             new String [] {
                 "ID", "Articulo", "Precio", "Existencias"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         JTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         JTable.setSelectionBackground(new java.awt.Color(204, 255, 255));
         JTable.setSelectionForeground(new java.awt.Color(255, 255, 255));
         JTable.setShowHorizontalLines(true);
         JTable.setShowVerticalLines(true);
+        JTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(JTable);
 
         JTitulo.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
@@ -364,8 +385,55 @@ public class Add_Items extends javax.swing.JFrame {
     }//GEN-LAST:event_JBAgregarActionPerformed
 
     private void JBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBEliminarActionPerformed
-        
+        try {
+                    if (!validaciones.Esnumero(TXTID.getText().trim()) || TXTID.getText().trim().isEmpty() || Long.parseLong(TXTID.getText().trim()) < 0) {
+                        JOptionPane.showMessageDialog(null, "No es un número de ID válido o debe ingresar algún id no negativo", "Validación de datos", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        String id = TXTID.getText().trim();
+                        if (Inventario.getTamano() > 0) {
+                            if (Inventario.buscarProducto(id) != null) {
+                                int r = JOptionPane.showOptionDialog(this, "¿Esta seguro de eliminar este producto?", "Sistema de Inventario", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                                if (r == 0) {
+                                    Inventario.eliminarProducto(Inventario.buscarProducto(id));
+                                    Limpiar();
+                                    limpiarTabla();
+                                    habilita(true);
+                                    JOptionPane.showMessageDialog(null, "Producto Eliminado", "Resultados de Productos", JOptionPane.INFORMATION_MESSAGE);
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(null, "No hay registro en la base de datos con este ID" + id, "Validación de Búsqueda", JOptionPane.ERROR_MESSAGE);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No hay resgistro en la lista", "Resultados de Acciones", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
     }//GEN-LAST:event_JBEliminarActionPerformed
+
+    private void JTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTableMouseClicked
+        if (evt.getClickCount() == 2) {
+            int r = JOptionPane.showOptionDialog(rootPane, "Ha seleccionado el producto " + JTable.getSelectedRow() + "\n ¿Deseas cargarlo al sistema?", "Sistema de Encuestados", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            if (r == 0) {
+                int fila = JTable.getSelectedRow();
+                if (fila != -1) {
+                    if (producto.getTamaño() == 0) {
+                        JOptionPane.showMessageDialog(null, "No hay registros en la Base de Datos", "Validación de datos", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        TXTID.setText(JTable.getValueAt(fila, 0).toString());
+                        TXTArticulo.setText(JTable.getValueAt(fila, 1).toString());
+                        TXTPrecio.setText(JTable.getValueAt(fila, 2).toString());
+                        TXTExistencias.setText(JTable.getValueAt(fila, 3).toString());
+                        poslugar = fila;
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Debe seleccionar un producto", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        }
+                            
+    }//GEN-LAST:event_JTableMouseClicked
 
     /**
      * @param args the command line arguments

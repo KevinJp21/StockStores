@@ -27,7 +27,7 @@ public class Inventario {
     }
     
     //Metodo que busca un producto por la ID
-    public Producto buscarProducto(int ID) {
+    public Producto buscarProducto(String ID) {
         for (Producto P : productos) {
             if (P.getId().equals(ID)) {
                 return (P);
