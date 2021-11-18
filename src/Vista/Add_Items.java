@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Jose angel
  */
 public class Add_Items extends javax.swing.JFrame {
+
     public int poslugar;
     Operaciones validaciones = new Operaciones();
     public Inventario Inventario = new Inventario();
@@ -30,7 +31,7 @@ public class Add_Items extends javax.swing.JFrame {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Imagenes/stock.png")));
     }
-    
+
     public void limpiarTabla() {
         for (int i = 0; i < 10; i++) {
             JTable.setValueAt("", i, 0);
@@ -39,6 +40,7 @@ public class Add_Items extends javax.swing.JFrame {
             JTable.setValueAt("", i, 3);
         }
     }
+
     void Limpiar() {
 
         TXTID.setText("");
@@ -54,6 +56,20 @@ public class Add_Items extends javax.swing.JFrame {
         TXTPrecio.setEnabled(answer);
         TXTExistencias.setEnabled(answer);
 
+    }
+
+    public void ImprimirProductos(int pos) {
+        if (Inventario.getTamano() > 0) {
+            for (int i = 0; i < Inventario.getTamano(); i++) {
+                JTable.setValueAt(Inventario.posicionProducto(i).getId(), i, 0);
+                JTable.setValueAt(Inventario.posicionProducto(i).getArticulo().toUpperCase(), i, 1);
+                JTable.setValueAt(Inventario.posicionProducto(i).getPrecio(), i, 2);
+                JTable.setValueAt(Inventario.posicionProducto(i).getStock(), i, 3);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay productos guardados", "Validación de datos", JOptionPane.INFORMATION_MESSAGE);
+
+        }
     }
 
     public void ImprimirLista() {
@@ -92,6 +108,7 @@ public class Add_Items extends javax.swing.JFrame {
         JBAgregar = new javax.swing.JButton();
         JBEliminar = new javax.swing.JButton();
         JBActualizar = new javax.swing.JButton();
+        JBBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -290,6 +307,15 @@ public class Add_Items extends javax.swing.JFrame {
             }
         });
 
+        JBBuscar.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        JBBuscar.setForeground(new java.awt.Color(0, 0, 0));
+        JBBuscar.setText("Buscar");
+        JBBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -321,10 +347,13 @@ public class Add_Items extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(JBImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(JBEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(JBEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JBBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(JBActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(JBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(JBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JBActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(68, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -352,7 +381,9 @@ public class Add_Items extends javax.swing.JFrame {
                             .addComponent(JBEliminar)
                             .addComponent(JBActualizar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(JBSalir)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(JBSalir)
+                            .addComponent(JBBuscar))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
@@ -401,27 +432,27 @@ public class Add_Items extends javax.swing.JFrame {
 
     private void JBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBEliminarActionPerformed
         try {
-                    if (!validaciones.Esnumero(TXTID.getText().trim()) || TXTID.getText().trim().isEmpty() || Long.parseLong(TXTID.getText().trim()) < 0) {
-                        JOptionPane.showMessageDialog(null, "No es un número de ID válido o debe ingresar algún id no negativo", "Validación de datos", JOptionPane.ERROR_MESSAGE);
-                    } else {
-                        String id = TXTID.getText().trim();
-                        if (Inventario.getTamano() > 0) {
-                            if (Inventario.buscarProducto(id) != null) {
-                                int r = JOptionPane.showOptionDialog(this, "¿Esta seguro de eliminar este producto?", "Sistema de Inventario", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-                                if (r == 0) {
-                                    Inventario.eliminarProducto(Inventario.buscarProducto(id));
-                                    Limpiar();
-                                    limpiarTabla();
-                                    habilita(true);
-                                    JOptionPane.showMessageDialog(null, "Producto Eliminado", "Resultados de Productos", JOptionPane.INFORMATION_MESSAGE);
-                                }
-                            } else {
-                                JOptionPane.showMessageDialog(null, "No hay registro en la base de datos con este ID" + id, "Validación de Búsqueda", JOptionPane.ERROR_MESSAGE);
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(null, "No hay resgistro en la lista", "Resultados de Acciones", JOptionPane.INFORMATION_MESSAGE);
+            if (!validaciones.Esnumero(TXTID.getText().trim()) || TXTID.getText().trim().isEmpty() || Long.parseLong(TXTID.getText().trim()) < 0) {
+                JOptionPane.showMessageDialog(null, "No es un número de ID válido o debe ingresar algún id no negativo", "Validación de datos", JOptionPane.ERROR_MESSAGE);
+            } else {
+                String id = TXTID.getText().trim();
+                if (Inventario.getTamano() > 0) {
+                    if (Inventario.buscarProducto(id) != null) {
+                        int r = JOptionPane.showOptionDialog(this, "¿Esta seguro de eliminar este producto?", "Sistema de Inventario", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                        if (r == 0) {
+                            Inventario.eliminarProducto(Inventario.buscarProducto(id));
+                            Limpiar();
+                            limpiarTabla();
+                            habilita(true);
+                            JOptionPane.showMessageDialog(null, "Producto Eliminado", "Resultados de Productos", JOptionPane.INFORMATION_MESSAGE);
                         }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No hay registro en la base de datos con este ID" + id, "Validación de Búsqueda", JOptionPane.ERROR_MESSAGE);
                     }
+                } else {
+                    JOptionPane.showMessageDialog(null, "No hay resgistro en la lista", "Resultados de Acciones", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
         } catch (ArrayIndexOutOfBoundsException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -447,51 +478,72 @@ public class Add_Items extends javax.swing.JFrame {
                 }
             }
         }
-                            
+
     }//GEN-LAST:event_JTableMouseClicked
 
     private void JBActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBActualizarActionPerformed
         try {
-                    if (!validaciones.Esnumero(TXTID.getText().trim()) || TXTID.getText().trim().isEmpty() || Long.parseLong(TXTID.getText().trim()) < 0) {
-            JOptionPane.showMessageDialog(null, "No es un ID válido o debe ingresar algún id no negativo", "Validación de datos", JOptionPane.ERROR_MESSAGE);
-        } else {
-            if (!validaciones.Estexto(TXTArticulo.getText().toUpperCase().trim()) || TXTArticulo.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "No es un nombre valido o campo vacio", "Validación de datos", JOptionPane.ERROR_MESSAGE);
+            if (!validaciones.Esnumero(TXTID.getText().trim()) || TXTID.getText().trim().isEmpty() || Long.parseLong(TXTID.getText().trim()) < 0) {
+                JOptionPane.showMessageDialog(null, "No es un ID válido o debe ingresar algún id no negativo", "Validación de datos", JOptionPane.ERROR_MESSAGE);
             } else {
-                if (!validaciones.Esnumero(TXTPrecio.getText().trim()) || TXTPrecio.getText().trim().isEmpty() || Long.parseLong(TXTPrecio.getText().trim()) < 0) {
-                    JOptionPane.showMessageDialog(null, "No es un Precio válido o debe ingresar algún precio no negativo", "Validación de datos", JOptionPane.ERROR_MESSAGE);
+                if (!validaciones.Estexto(TXTArticulo.getText().toUpperCase().trim()) || TXTArticulo.getText().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "No es un nombre valido o campo vacio", "Validación de datos", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    if (!validaciones.Esnumero(TXTExistencias.getText().trim()) || TXTExistencias.getText().trim().isEmpty() || Long.parseLong(TXTExistencias.getText().trim()) < 0) {
-                        JOptionPane.showMessageDialog(null, "No es un numero válido o debe ingresar algún numero no negativo", "Validación de datos", JOptionPane.ERROR_MESSAGE);
-                            } else {
-                                String id = TXTID.getText().trim();
-                                if (Inventario.getTamano() > 0) {
-                                    if (Inventario.buscarProducto(id) != null) {
-                                        Producto pro = Inventario.buscarProducto(id);
-                                        pro.setArticulo(TXTArticulo.getText().toUpperCase().trim());
-                                        pro.setPrecio(TXTPrecio.getText().trim());
-                                        pro.setStock(TXTExistencias.getText().trim());
-                                        Limpiar();
-                                        limpiarTabla();
-                                        habilita(true);
-                                        JOptionPane.showMessageDialog(null, "Producto Actualizado", "Resultados de Acciones", JOptionPane.INFORMATION_MESSAGE);
-                                    } else {
-                                        JOptionPane.showMessageDialog(null, "No hay registro en la base de datos con este ID " + id, "Validación de Búsqueda", JOptionPane.ERROR_MESSAGE);
-                                    }
+                    if (!validaciones.Esnumero(TXTPrecio.getText().trim()) || TXTPrecio.getText().trim().isEmpty() || Long.parseLong(TXTPrecio.getText().trim()) < 0) {
+                        JOptionPane.showMessageDialog(null, "No es un Precio válido o debe ingresar algún precio no negativo", "Validación de datos", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        if (!validaciones.Esnumero(TXTExistencias.getText().trim()) || TXTExistencias.getText().trim().isEmpty() || Long.parseLong(TXTExistencias.getText().trim()) < 0) {
+                            JOptionPane.showMessageDialog(null, "No es un numero válido o debe ingresar algún numero no negativo", "Validación de datos", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            String id = TXTID.getText().trim();
+                            if (Inventario.getTamano() > 0) {
+                                if (Inventario.buscarProducto(id) != null) {
+                                    Producto pro = Inventario.buscarProducto(id);
+                                    pro.setArticulo(TXTArticulo.getText().toUpperCase().trim());
+                                    pro.setPrecio(TXTPrecio.getText().trim());
+                                    pro.setStock(TXTExistencias.getText().trim());
+                                    Limpiar();
+                                    limpiarTabla();
+                                    habilita(true);
+                                    JOptionPane.showMessageDialog(null, "Producto Actualizado", "Resultados de Acciones", JOptionPane.INFORMATION_MESSAGE);
                                 } else {
-                                    JOptionPane.showMessageDialog(null, "No hay resgistro en la lista", "Resultados de Acciones", JOptionPane.INFORMATION_MESSAGE);
+                                    JOptionPane.showMessageDialog(null, "No hay registro en la base de datos con este ID " + id, "Validación de Búsqueda", JOptionPane.ERROR_MESSAGE);
                                 }
+                            } else {
+                                JOptionPane.showMessageDialog(null, "No hay resgistro en la lista", "Resultados de Acciones", JOptionPane.INFORMATION_MESSAGE);
                             }
                         }
                     }
-                    
+                }
+
             }
 
         } catch (ArrayIndexOutOfBoundsException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_JBActualizarActionPerformed
-    
+
+    private void JBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBuscarActionPerformed
+        try {
+            if (Inventario.getTamano() > 0) {
+                String id = TXTID.getText().trim();
+                if (Inventario.getTamano() > 0) {
+                    if (Inventario.buscarProducto(id) != null) {
+                        Limpiar();
+                        ImprimirProductos(Inventario.indexProducto(Inventario.buscarProducto(id)));
+                        JOptionPane.showMessageDialog(null, "Existe una coincidencia", "Resultados de Acciones", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No hay registro en la base de datos con este ID " + id, "Validación de Búsqueda", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "No hay resgistro en la lista", "Resultados de Acciones", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_JBBuscarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -506,16 +558,24 @@ public class Add_Items extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Add_Items.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Add_Items.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Add_Items.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Add_Items.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Add_Items.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Add_Items.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Add_Items.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Add_Items.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -531,6 +591,7 @@ public class Add_Items extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBActualizar;
     private javax.swing.JButton JBAgregar;
+    private javax.swing.JButton JBBuscar;
     private javax.swing.JButton JBEliminar;
     private javax.swing.JButton JBImprimir;
     private javax.swing.JButton JBSalir;
