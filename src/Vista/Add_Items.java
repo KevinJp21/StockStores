@@ -474,7 +474,7 @@ public class Add_Items extends javax.swing.JFrame {
                                         Limpiar();
                                         limpiarTabla();
                                         habilita(true);
-                                        JOptionPane.showMessageDialog(null, "Datos Personales Actualizados", "Resultados de Acciones", JOptionPane.INFORMATION_MESSAGE);
+                                        JOptionPane.showMessageDialog(null, "Producto Actualizado", "Resultados de Acciones", JOptionPane.INFORMATION_MESSAGE);
                                     } else {
                                         JOptionPane.showMessageDialog(null, "No hay registro en la base de datos con este ID " + id, "Validación de Búsqueda", JOptionPane.ERROR_MESSAGE);
                                     }
