@@ -464,7 +464,7 @@ public class Add_Items extends javax.swing.JFrame {
             if (r == 0) {
                 int fila = JTable.getSelectedRow();
                 if (fila != -1) {
-                    if (producto.getTamaño() == 0) {
+                    if (producto.getTamano() == 0) {
                         JOptionPane.showMessageDialog(null, "No hay registros en la Base de Datos", "Validación de datos", JOptionPane.INFORMATION_MESSAGE);
                     } else {
                         TXTID.setText(JTable.getValueAt(fila, 0).toString());
