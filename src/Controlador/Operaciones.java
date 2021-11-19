@@ -29,7 +29,7 @@ public class Operaciones {
     
     // valida si lo que se escribio es una contrasena
     public boolean EsContrasena(String cadena) {
-        if (cadena.matches("^(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,16}$")) {
+        if (cadena.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$")) {
             return (true);
         } else {
             return (false);

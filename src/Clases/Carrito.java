@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Carrito{
     
     private final ArrayList<Item> items;
-    private int cantidad;
+    private String cantidad;
     private int subtotal;
     
     public Carrito(){
@@ -13,20 +13,20 @@ public class Carrito{
     }
     
     class Item {
-        int id;
+        String id;
         String articulo;
-        int precio;
-        int stock;
-        int cantidad;
+        String precio;
+        String stock;
+        String cantidad;
         int subtotal;
         
-        public int getId(){
+        public String getId(){
             return id;
         }
     }
     
     //Metodo que permite agregar un item al Carrito
-    public void agregarItem(int Id, String Articulo, int Precio, int Stock, int Cantidad){
+    public void agregarItem(String Id, String Articulo, String Precio, String Stock, String Cantidad){
         Item item = new Item();
         item.id = Id;
         item.articulo = Articulo;
@@ -34,7 +34,7 @@ public class Carrito{
         item.stock = Stock;
         item.cantidad = Cantidad;
         setCantidad(Cantidad);
-        item.subtotal = (Precio*Cantidad);
+        item.subtotal = (Integer.parseInt(Precio)*Integer.parseInt(Cantidad));
         setSubtotal(item.subtotal);
         items.add(item);
     }
@@ -50,9 +50,9 @@ public class Carrito{
     }
     
     //Metodo que busca un item por la ID
-    public Item buscarItem(int ID) {
+    public Item buscarItem(String ID) {
         for (Item I : items) {
-            if (I.getId() == ID) {
+            if (I.getId().equals(ID)) {
                 return (I);
             }
         }
@@ -78,11 +78,11 @@ public class Carrito{
         return (items.indexOf(I));
     }
     
-    public int getCantidad() {
+    public String getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(String cantidad) {
         this.cantidad = cantidad;
     }
 

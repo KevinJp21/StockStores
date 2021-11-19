@@ -1,41 +1,53 @@
 package Clases;
 
-public class Cliente {
+public final class Cliente {
 
-    private String cedula;
-    private String nombre;
-    private String contrasena;
-    private char tipo;
+    private static String cedula = "";
+    private static String nombre = "";
+    private static String contrasena = "";
+    private static boolean activo = false;
 
-    public String getCedula() {
+    public Cliente(String ced, String nom, String cont, boolean act) {
+        cedula = ced;
+        nombre = nom;
+        contrasena = cont;
+        activo = act;
+    }
+
+    public Cliente() {
+        //nada.
+    }
+
+    public static String getCedula() {
         return cedula;
     }
 
-    public String getNombre() {
+    public static String getNombre() {
         return nombre;
     }
 
-    public String getContrasena() {
+    public static String getContrasena() {
         return contrasena;
     }
 
-    public void setCedula(String Cedula) {
-        this.cedula = cedula;
+    public static void setCedula(String ced) {
+        cedula = ced;
     }
 
-    public void setNombre(String Nombre) {
-        this.nombre = nombre;
+    public static void setNombre(String nom) {
+        nombre = nom;
     }
 
-    public void setContrasena(String Contrasena) {
-        this.contrasena = contrasena;
-    }
-    
-    public char getTipo() {
-        return tipo;
+    public static void setContrasena(String cont) {
+        contrasena = cont;
     }
 
-    public void setTipo(char tipo) {
-        this.tipo = tipo;
+    public static boolean isActivo() {
+        return activo;
     }
+
+    public static void setActivo(boolean act) {
+        activo = act;
+    }
+
 }

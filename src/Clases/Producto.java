@@ -3,8 +3,8 @@ package Clases;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Producto {
+
     private String id;
     private String articulo;
     private String precio;
@@ -20,10 +20,8 @@ public class Producto {
 
     }
 
-    
-
     public Producto() {
-      
+
     }
 
     public void agregarproducto(Inventario Stock) {
@@ -34,8 +32,9 @@ public class Producto {
             this.getInventario().add(Stock);
         }
     }
-     public int getTamaño() {
-        if (this.getInventario()== null) {
+
+    public int getTamano() {
+        if (this.getInventario() == null) {
             return (0);
         } else {
             return (getInventario().size());
@@ -43,79 +42,44 @@ public class Producto {
 
     }
 
-   
-  
-    /**
-     * @return the id
-     */
     public String getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(String id) {
         this.id = id;
     }
 
-    /**
-     * @return the articulo
-     */
     public String getArticulo() {
         return articulo;
     }
 
-    /**
-     * @param articulo the articulo to set
-     */
     public void setArticulo(String articulo) {
         this.articulo = articulo;
     }
 
-    /**
-     * @return the precio
-     */
     public String getPrecio() {
         return precio;
     }
 
-    /**
-     * @param precio the precio to set
-     */
     public void setPrecio(String precio) {
         this.precio = precio;
     }
 
-    /**
-     * @return the stock
-     */
     public String getStock() {
         return stock;
     }
 
-    /**
-     * @param stock the stock to set
-     */
     public void setStock(String stock) {
         this.stock = stock;
     }
 
-    /**
-     * @return the inventario
-     */
     public List<Inventario> getInventario() {
         return inventario;
     }
 
-    /**
-     * @param inventario the inventario to set
-     */
     public void setInventario(List<Inventario> inventario) {
         this.inventario = inventario;
     }
-     
-
-    
 
 }
