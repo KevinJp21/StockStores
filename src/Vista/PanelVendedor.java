@@ -4,23 +4,29 @@ import javax.swing.ImageIcon;
 import Clases.Inventario;
 import Clases.Producto;
 import Controlador.Operaciones;
+import static Vista.PanelCliente.JTable2;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class PanelVendedor extends javax.swing.JInternalFrame {
-    
+
+    PanelCliente x = new PanelCliente();
+
     public int poslugar;
+    SolicitudesRecibidas solicitudes = new SolicitudesRecibidas(null, true);
     Operaciones validaciones = new Operaciones();
     public Inventario Inventario = new Inventario();
     public Producto producto = new Producto();
     public Producto pr;
-    
+
     public PanelVendedor() {
         initComponents();
         ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("Imagenes/stock.png"));
         this.setFrameIcon(icon);
     }
-    
+
     public void limpiarTabla() {
         for (int i = 0; i < 10; i++) {
             JTable.setValueAt("", i, 0);
@@ -46,7 +52,7 @@ public class PanelVendedor extends javax.swing.JInternalFrame {
         TXTExistencias.setEnabled(answer);
         JBAgregar.setEnabled(answer);
     }
-    
+
     public void ImprimirLista() {
         if (Inventario.getTamano() > 0) {
             for (int j = 0; j < Inventario.getTamano(); j++) {
@@ -60,7 +66,6 @@ public class PanelVendedor extends javax.swing.JInternalFrame {
 
         }
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -78,13 +83,14 @@ public class PanelVendedor extends javax.swing.JInternalFrame {
         JBActualizar = new javax.swing.JButton();
         JBBuscar = new javax.swing.JButton();
         JBLimpiarCampos = new javax.swing.JButton();
+        JBSolicitudes = new javax.swing.JButton();
 
         setBorder(null);
         setTitle("Panel Vendedor - Inventario");
-        setPreferredSize(new java.awt.Dimension(900, 695));
+        setPreferredSize(new java.awt.Dimension(1530, 686));
 
         jPanel12.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel12.setPreferredSize(new java.awt.Dimension(985, 733));
+        jPanel12.setPreferredSize(new java.awt.Dimension(1530, 686));
 
         TXTExistencias.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         TXTExistencias.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Stock:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 12))); // NOI18N
@@ -212,7 +218,7 @@ public class PanelVendedor extends javax.swing.JInternalFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "ID", "Articulo", "Precio", "Existencias"
+                "ID", "Articulo", "Precio", "Stock"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -223,7 +229,7 @@ public class PanelVendedor extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        JTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        JTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         JTable.setSelectionBackground(new java.awt.Color(60, 63, 65));
         JTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -232,53 +238,101 @@ public class PanelVendedor extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(JTable);
 
-        JBAgregar.setBackground(new java.awt.Color(102, 0, 255));
+        JBAgregar.setBackground(new java.awt.Color(80, 10, 250));
         JBAgregar.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         JBAgregar.setForeground(new java.awt.Color(255, 255, 255));
         JBAgregar.setText("Agregar");
+        JBAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        JBAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                JBAgregarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                JBAgregarMouseExited(evt);
+            }
+        });
         JBAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JBAgregarActionPerformed(evt);
             }
         });
 
-        JBEliminar.setBackground(new java.awt.Color(255, 0, 0));
+        JBEliminar.setBackground(new java.awt.Color(255, 0, 50));
         JBEliminar.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         JBEliminar.setForeground(new java.awt.Color(255, 255, 255));
         JBEliminar.setText("Eliminar");
+        JBEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        JBEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                JBEliminarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                JBEliminarMouseExited(evt);
+            }
+        });
         JBEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JBEliminarActionPerformed(evt);
             }
         });
 
-        JBActualizar.setBackground(new java.awt.Color(255, 0, 153));
+        JBActualizar.setBackground(new java.awt.Color(255, 103, 153));
         JBActualizar.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         JBActualizar.setForeground(new java.awt.Color(255, 255, 255));
         JBActualizar.setText("Actualizar");
+        JBActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        JBActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                JBActualizarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                JBActualizarMouseExited(evt);
+            }
+        });
         JBActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JBActualizarActionPerformed(evt);
             }
         });
 
-        JBBuscar.setBackground(new java.awt.Color(102, 0, 255));
+        JBBuscar.setBackground(new java.awt.Color(31, 173, 116));
         JBBuscar.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         JBBuscar.setForeground(new java.awt.Color(255, 255, 255));
         JBBuscar.setText("Buscar");
+        JBBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         JBBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JBBuscarActionPerformed(evt);
             }
         });
 
-        JBLimpiarCampos.setBackground(new java.awt.Color(102, 0, 255));
+        JBLimpiarCampos.setBackground(new java.awt.Color(102, 118, 255));
         JBLimpiarCampos.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         JBLimpiarCampos.setForeground(new java.awt.Color(255, 255, 255));
         JBLimpiarCampos.setText("Limpiar Campos");
+        JBLimpiarCampos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        JBLimpiarCampos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                JBLimpiarCamposMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                JBLimpiarCamposMouseExited(evt);
+            }
+        });
         JBLimpiarCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JBLimpiarCamposActionPerformed(evt);
+            }
+        });
+
+        JBSolicitudes.setBackground(new java.awt.Color(0, 153, 50));
+        JBSolicitudes.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        JBSolicitudes.setForeground(new java.awt.Color(255, 255, 255));
+        JBSolicitudes.setText("Solicitudes Recibidas");
+        JBSolicitudes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        JBSolicitudes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBSolicitudesActionPerformed(evt);
             }
         });
 
@@ -288,72 +342,73 @@ public class PanelVendedor extends javax.swing.JInternalFrame {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(TXTID, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
-                            .addComponent(TXTPrecio)
-                            .addComponent(TXTArticulo))
-                        .addGap(58, 58, 58)
+                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(TXTExistencias, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
+                            .addComponent(TXTID, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TXTArticulo, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TXTPrecio, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 336, Short.MAX_VALUE)
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel12Layout.createSequentialGroup()
-                                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(JBAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(JBEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(26, 26, 26)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(JBSolicitudes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(JBLimpiarCampos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
                                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(JBActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(JBBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(JBLimpiarCampos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(TXTExistencias, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 807, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(133, Short.MAX_VALUE))
+                                    .addComponent(JBEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(JBAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(JBActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(JBBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(42, 42, 42))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
                         .addComponent(TXTID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(TXTArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(TXTPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(TXTPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)
+                        .addComponent(TXTExistencias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
+                        .addGap(10, 10, 10)
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(JBAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JBBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(JBAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JBBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(JBEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JBActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(JBEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JBActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(JBLimpiarCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(TXTExistencias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                        .addComponent(JBLimpiarCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(JBSolicitudes, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(190, Short.MAX_VALUE))
+                .addGap(69, 69, 69))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 986, Short.MAX_VALUE)
+            .addGap(0, 1530, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 986, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 759, Short.MAX_VALUE)
+            .addGap(0, 664, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, 759, Short.MAX_VALUE))
+                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE))
         );
 
         pack();
@@ -366,15 +421,19 @@ public class PanelVendedor extends javax.swing.JInternalFrame {
                 int fila = JTable.getSelectedRow();
                 if (fila != -1) {
                     if (producto.getTamano() == 0) {
-                        JOptionPane.showMessageDialog(null, "No hay registros en la Base de Datos", "Validación de datos", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "No hay registro de productos en la Base de Datos", "Validación de datos", JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        TXTID.setText(JTable.getValueAt(fila, 0).toString());
-                        TXTID.setEnabled(false);
-                        JBAgregar.setEnabled(false);
-                        TXTArticulo.setText(JTable.getValueAt(fila, 1).toString());
-                        TXTPrecio.setText(JTable.getValueAt(fila, 2).toString());
-                        TXTExistencias.setText(JTable.getValueAt(fila, 3).toString());
-                        poslugar = fila;
+                        if (JTable.getValueAt(fila, 0).toString().isEmpty() && JTable.getValueAt(fila, 1).toString().isEmpty() && JTable.getValueAt(fila, 2).toString().isEmpty() && JTable.getValueAt(fila, 3).toString().isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "No puedes seleccionar un Producto que no existe", "Validación de datos", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            TXTID.setText(JTable.getValueAt(fila, 0).toString());
+                            TXTID.setEnabled(false);
+                            JBAgregar.setEnabled(false);
+                            TXTArticulo.setText(JTable.getValueAt(fila, 1).toString());
+                            TXTPrecio.setText(JTable.getValueAt(fila, 2).toString());
+                            TXTExistencias.setText(JTable.getValueAt(fila, 3).toString());
+                            poslugar = fila;
+                        }
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Debe seleccionar un producto", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -396,16 +455,20 @@ public class PanelVendedor extends javax.swing.JInternalFrame {
                     if (!validaciones.Esnumero(TXTExistencias.getText().trim()) || TXTExistencias.getText().trim().isEmpty() || Long.parseLong(TXTExistencias.getText().trim()) < 0) {
                         JOptionPane.showMessageDialog(null, "No es un numero válido o debe ingresar algún numero no negativo", "Validación de datos", JOptionPane.ERROR_MESSAGE);
                     } else {
-
-                        producto = new Producto(TXTID.getText(), TXTArticulo.getText().toUpperCase(), TXTPrecio.getText().toUpperCase(), TXTExistencias.getText().toUpperCase(), Inventario);
-
-                        Inventario.agregar(producto);
-
-                        Limpiar();
-                        habilita(true);
-                        JOptionPane.showMessageDialog(null, "Procucto Guardado", "Ingreso de Datos", JOptionPane.INFORMATION_MESSAGE);
-                        limpiarTabla();
-                        ImprimirLista();
+                        String id = TXTID.getText().trim();
+                        if (Inventario.buscarProducto(id) != null) {
+                            JOptionPane.showMessageDialog(null, "No se permite agregar duplicado de IDs de productos", "Validación de datos", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            TableModel model = JTable.getModel();
+                            producto = new Producto(TXTID.getText(), TXTArticulo.getText().toUpperCase(), TXTPrecio.getText().toUpperCase(), TXTExistencias.getText().toUpperCase(), Inventario);
+                            Inventario.agregar(producto);
+                            Limpiar();
+                            habilita(true);
+                            JOptionPane.showMessageDialog(null, "Procucto Guardado", "Ingreso de Datos", JOptionPane.INFORMATION_MESSAGE);
+                            limpiarTabla();
+                            ImprimirLista();
+                            JTable2.setModel(model);
+                        }
                     }
                 }
             }
@@ -422,12 +485,16 @@ public class PanelVendedor extends javax.swing.JInternalFrame {
                     if (Inventario.buscarProducto(id) != null) {
                         int r = JOptionPane.showOptionDialog(this, "¿Esta seguro de eliminar este producto?", "Sistema de Inventario", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
                         if (r == 0) {
+
+                            TableModel model = JTable.getModel();
                             Inventario.eliminarProducto(Inventario.buscarProducto(id));
                             Limpiar();
                             habilita(true);
                             JOptionPane.showMessageDialog(null, "Producto Eliminado", "Resultados de Productos", JOptionPane.INFORMATION_MESSAGE);
                             limpiarTabla();
                             ImprimirLista();
+                            JTable2.setModel(model);
+
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "No hay registro en la base de datos con este ID" + id, "Validación de Búsqueda", JOptionPane.ERROR_MESSAGE);
@@ -458,15 +525,20 @@ public class PanelVendedor extends javax.swing.JInternalFrame {
                             String id = TXTID.getText().trim();
                             if (Inventario.getTamano() > 0) {
                                 if (Inventario.buscarProducto(id) != null) {
+                                    TableModel model = JTable.getModel();
+
                                     Producto pro = Inventario.buscarProducto(id);
                                     pro.setArticulo(TXTArticulo.getText().toUpperCase().trim());
                                     pro.setPrecio(TXTPrecio.getText().trim());
                                     pro.setStock(TXTExistencias.getText().trim());
+
                                     Limpiar();
                                     habilita(true);
                                     JOptionPane.showMessageDialog(null, "Producto Actualizado", "Resultados de Acciones", JOptionPane.INFORMATION_MESSAGE);
                                     limpiarTabla();
                                     ImprimirLista();
+                                    JTable2.setModel(model);
+
                                 } else {
                                     JOptionPane.showMessageDialog(null, "No hay registro en la base de datos con este ID " + id, "Validación de Búsqueda", JOptionPane.ERROR_MESSAGE);
                                 }
@@ -490,7 +562,7 @@ public class PanelVendedor extends javax.swing.JInternalFrame {
                 String id = TXTID.getText().trim();
                 if (Inventario.getTamano() > 0) {
                     if (Inventario.buscarProducto(id) != null) {
-                        JOptionPane.showMessageDialog(null, "Existe una coincidencia:\n Id: "+TXTID.getText()+"\n Articulo: "+TXTArticulo.getText()+"\n Precio: "+TXTPrecio.getText()+"\n Existencias: "+TXTExistencias.getText(), "Resultados de Acciones", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Existe una coincidencia:\n Id: " + TXTID.getText() + "\n Articulo: " + TXTArticulo.getText() + "\n Precio: " + TXTPrecio.getText() + "\n Existencias: " + TXTExistencias.getText(), "Resultados de Acciones", JOptionPane.INFORMATION_MESSAGE);
                         limpiarTabla();
                         ImprimirLista();
                         Limpiar();
@@ -516,6 +588,44 @@ public class PanelVendedor extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TXTExistenciasActionPerformed
 
+    private void JBSolicitudesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBSolicitudesActionPerformed
+        solicitudes.setModal(true);
+        solicitudes.setVisible(true);
+        solicitudes.toFront();
+    }//GEN-LAST:event_JBSolicitudesActionPerformed
+
+    private void JBAgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBAgregarMouseEntered
+        JBAgregar.setBackground(new Color(140, 92, 252));
+    }//GEN-LAST:event_JBAgregarMouseEntered
+
+    private void JBAgregarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBAgregarMouseExited
+        JBAgregar.setBackground(new Color(131, 79, 251));
+    }//GEN-LAST:event_JBAgregarMouseExited
+
+    private void JBEliminarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBEliminarMouseEntered
+        JBEliminar.setBackground(new Color(255, 45, 87));
+    }//GEN-LAST:event_JBEliminarMouseEntered
+
+    private void JBEliminarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBEliminarMouseExited
+        JBEliminar.setBackground(new Color(255, 0, 50));
+    }//GEN-LAST:event_JBEliminarMouseExited
+
+    private void JBActualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBActualizarMouseEntered
+        JBActualizar.setBackground(new Color(255, 149, 184));
+    }//GEN-LAST:event_JBActualizarMouseEntered
+
+    private void JBActualizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBActualizarMouseExited
+        JBActualizar.setBackground(new Color(255, 103, 153));
+    }//GEN-LAST:event_JBActualizarMouseExited
+
+    private void JBLimpiarCamposMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBLimpiarCamposMouseEntered
+       JBLimpiarCampos.setBackground(new Color(125, 138, 255));
+    }//GEN-LAST:event_JBLimpiarCamposMouseEntered
+
+    private void JBLimpiarCamposMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBLimpiarCamposMouseExited
+        JBLimpiarCampos.setBackground(new Color(102, 118, 255));
+    }//GEN-LAST:event_JBLimpiarCamposMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBActualizar;
@@ -523,6 +633,7 @@ public class PanelVendedor extends javax.swing.JInternalFrame {
     private javax.swing.JButton JBBuscar;
     private javax.swing.JButton JBEliminar;
     private javax.swing.JButton JBLimpiarCampos;
+    private javax.swing.JButton JBSolicitudes;
     private javax.swing.JTable JTable;
     private javax.swing.JTextField TXTArticulo;
     private javax.swing.JTextField TXTExistencias;

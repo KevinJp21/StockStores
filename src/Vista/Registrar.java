@@ -3,6 +3,7 @@ package Vista;
 import Clases.Cliente;
 import Clases.Vendedor;
 import Controlador.Operaciones;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 
 public class Registrar extends javax.swing.JDialog {
@@ -49,6 +50,11 @@ public class Registrar extends javax.swing.JDialog {
         jLabel2.setText("Cedula:");
 
         txtCedula.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtCedula.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtCedulaMousePressed(evt);
+            }
+        });
         txtCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCedulaActionPerformed(evt);
@@ -75,11 +81,21 @@ public class Registrar extends javax.swing.JDialog {
 
         cbUsuario.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         cbUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "CLIENTE", "VENDEDOR" }));
+        cbUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        btnIngresar.setBackground(new java.awt.Color(255, 0, 0));
+        btnIngresar.setBackground(new java.awt.Color(0, 134, 190));
         btnIngresar.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
         btnIngresar.setText("REGISTRAR");
+        btnIngresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnIngresar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnIngresarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnIngresarMouseExited(evt);
+            }
+        });
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngresarActionPerformed(evt);
@@ -169,10 +185,6 @@ public class Registrar extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCedulaActionPerformed
-
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         ced = txtCedula.getText();
         nom = txtNombre.getText();
@@ -229,6 +241,24 @@ public class Registrar extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_btnIngresarActionPerformed
+
+    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
+       
+
+
+    }//GEN-LAST:event_txtCedulaActionPerformed
+
+    private void btnIngresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseEntered
+        btnIngresar.setBackground(new Color(0, 156, 222));
+    }//GEN-LAST:event_btnIngresarMouseEntered
+
+    private void btnIngresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseExited
+        btnIngresar.setBackground(new Color(0, 134, 190));
+    }//GEN-LAST:event_btnIngresarMouseExited
+
+    private void txtCedulaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCedulaMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCedulaMousePressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

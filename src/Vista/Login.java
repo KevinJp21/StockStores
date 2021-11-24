@@ -2,6 +2,7 @@ package Vista;
 
 import Clases.Cliente;
 import Clases.Vendedor;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JDialog {
@@ -76,11 +77,18 @@ public class Login extends javax.swing.JDialog {
 
         cbUsuario.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         cbUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "CLIENTE", "VENDEDOR" }));
+        cbUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        btnIngresar.setBackground(new java.awt.Color(0, 0, 255));
+        btnIngresar.setBackground(new java.awt.Color(0, 134, 190));
         btnIngresar.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
         btnIngresar.setText("INGRESAR");
+        btnIngresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnIngresar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnIngresarMouseEntered(evt);
+            }
+        });
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngresarActionPerformed(evt);
@@ -161,7 +169,7 @@ public class Login extends javax.swing.JDialog {
         user = txtNombre.getText();
         pass = txtContrasena.getText();
         tipo = (String) cbUsuario.getSelectedItem();
-
+        
         if (tipo.equalsIgnoreCase("SELECCIONAR")) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de Usuario", "Validación de datos", JOptionPane.ERROR_MESSAGE);
         } else {
@@ -195,6 +203,10 @@ public class Login extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
+
+    private void btnIngresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseEntered
+      btnIngresar.setBackground(new Color (0,187,222));
+    }//GEN-LAST:event_btnIngresarMouseEntered
 
     /**
      * @param args the command line arguments
